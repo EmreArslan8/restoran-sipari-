@@ -95,7 +95,10 @@ function renderOrders() {
       html += `<tr class="expand-row"><td colspan="7">
         <div class="order-detail">
           <ul>${o.items.map(i => `<li><span>${i.qty}× ${i.name}</span><span>${formatPrice(i.price * i.qty)}</span></li>`).join("")}</ul>
+          ${o.deliveryFee != null ? `<li style="color:var(--gray)"><span>Teslimat Ücreti</span><span>${o.deliveryFee === 0 ? "Ücretsiz" : formatPrice(o.deliveryFee)}</span></li>` : ""}
+          <li style="font-weight:800;border-top:1px dashed var(--border);margin-top:4px;padding-top:8px"><span>Toplam</span><span>${formatPrice(orderSum(o) + (o.deliveryFee || 0))}</span></li>
           <div class="od-meta">📍 <strong>Adres:</strong> ${o.address || "-"}</div>
+          ${o.phone ? `<div class="od-meta">📞 <strong>Telefon:</strong> ${o.phone}</div>` : ""}
           ${o.note ? `<div class="od-meta">📝 <strong>Not:</strong> ${o.note}</div>` : ""}
           ${o.payment ? `<div class="od-meta">💳 <strong>Ödeme:</strong> ${o.payment}</div>` : ""}
         </div>
@@ -232,8 +235,45 @@ document.addEventListener("DOMContentLoaded", () => {
     e.preventDefault();
     if (confirm("Tüm demo verisi başlangıç haline sıfırlansın mı?")) {
       Store.reset();
+      knownOrderCount = Store.getOrders().length;
       renderDashboard(); renderOrders(); renderProducts();
       showToast("Demo verisi sıfırlandı");
     }
   };
+
+  // Canlı sipariş dinleme: başka sekmede sipariş verilince panel güncellenir
+  knownOrderCount = Store.getOrders().length;
+  window.addEventListener("storage", (e) => {
+    if (e.key !== "rs_orders") return;
+    const orders = Store.getOrders();
+    if (orders.length > knownOrderCount) {
+      const newest = orders[0];
+      notifyNewOrder(newest);
+    }
+    knownOrderCount = orders.length;
+    renderDashboard(); renderOrders();
+  });
 });
+
+let knownOrderCount = 0;
+
+function notifyNewOrder(order) {
+  showToast(`🔔 Yeni sipariş! #${order.id} · ${order.customer}`);
+  // Siparişler menüsünde canlı rozet
+  const btn = document.querySelector('#sideNav button[data-section="orders"]');
+  if (btn && !btn.querySelector(".live-dot")) {
+    const dot = document.createElement("span");
+    dot.className = "live-dot";
+    dot.textContent = "•";
+    btn.appendChild(dot);
+    setTimeout(() => dot.remove(), 8000);
+  }
+  try {
+    // Kısa bir bip sesi (Web Audio) — tarayıcı izin verirse
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const o = ctx.createOscillator(), g = ctx.createGain();
+    o.connect(g); g.connect(ctx.destination);
+    o.frequency.value = 880; g.gain.value = 0.05;
+    o.start(); o.stop(ctx.currentTime + 0.15);
+  } catch (_) {}
+}

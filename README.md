@@ -13,10 +13,13 @@ Modern, sade ve responsive arayüz — sadece **HTML, CSS ve saf JavaScript** il
 ## ✨ Özellikler
 
 **Müşteri tarafı**
-- Kategoriye göre filtrelenebilen menü kartları
-- Canlı sepet (adet artır/azalt, toplam tutar)
-- Adres ve ödeme bilgisiyle sipariş verme
-- Verilen sipariş anında admin paneline düşer
+- Restoran başlık kartı: puan/değerlendirme, teslimat süresi, min. sepet, açık/kapalı durumu
+- Kampanya şeridi + "Çok Satan", "Yeni" ve indirim (%) rozetleri, üstü çizili eski fiyat
+- Menüde canlı arama + kategori filtreleme
+- Canlı sepet: ara toplam, teslimat ücreti, **ücretsiz teslimat ilerleme çubuğu**, minimum sepet kontrolü
+- Mahalle seçimi + açık adres ile sipariş verme
+- Sipariş sonrası **canlı sipariş takip ekranı** (adım adım durum + tahmini teslimat saati)
+- Verilen sipariş anında admin paneline düşer (başka sekmede açıksa canlı bildirim + bip)
 
 **Admin panel**
 - 📊 KPI kartları: aktif sipariş, ciro, toplam sipariş, ürün sayısı

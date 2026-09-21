@@ -23,18 +23,28 @@
     </div>
   </header>
 
-  <!-- Hero -->
-  <section class="hero">
-    <div class="hero-inner">
-      <span class="badge">🚀 Demo — Mock veri ile çalışır</span>
-      <h1>Mahallenin lezzetleri, komisyonsuz kapında</h1>
-      <p>Sanayi bölgesindeki işletmeler ve civar restoranları buluşturan lokal sipariş platformu. Menüden seç, sepete ekle, sipariş ver.</p>
+  <!-- Kampanya şeridi -->
+  <div class="promo-strip" id="promoStrip"></div>
+
+  <!-- Restoran başlık kartı -->
+  <section class="resto-hero">
+    <div class="resto-hero-inner">
+      <div class="resto-cover">🍽️</div>
+      <div class="resto-info">
+        <h1 id="rName">Lezzet Durağı</h1>
+        <p class="resto-slogan" id="rSlogan"></p>
+        <div class="resto-meta" id="rMeta"></div>
+      </div>
     </div>
   </section>
 
   <!-- İçerik -->
   <div class="layout">
     <main>
+      <div class="menu-search">
+        <span class="search-ico">🔍</span>
+        <input type="text" id="searchInput" placeholder="Menüde ara… (örn: pizza, çorba)" />
+      </div>
       <div class="filters" id="filters"></div>
       <div class="menu-grid" id="menuGrid"></div>
     </main>
@@ -48,10 +58,13 @@
         </div>
         <div class="cart-items" id="cartItems"></div>
         <div class="cart-foot">
+          <div class="free-delivery" id="freeDelivery"></div>
+          <div class="cart-lines" id="cartLines"></div>
           <div class="cart-total">
             <span>Toplam</span>
             <span id="cartTotal">0 ₺</span>
           </div>
+          <div class="min-warn" id="minWarn"></div>
           <button class="btn-primary" id="checkoutBtn" disabled>Sipariş Ver</button>
         </div>
       </div>
@@ -86,8 +99,12 @@
             </div>
           </div>
           <div class="form-group">
-            <label>Adres</label>
-            <textarea name="address" rows="2" required placeholder="Teslimat adresi"></textarea>
+            <label>Mahalle / Bölge</label>
+            <select name="neighborhood" id="neighborhoodSelect"></select>
+          </div>
+          <div class="form-group">
+            <label>Açık Adres</label>
+            <textarea name="address" rows="2" required placeholder="Cadde, sokak, bina ve kat bilgisi"></textarea>
           </div>
           <div class="form-group">
             <label>Sipariş Notu (opsiyonel)</label>
@@ -95,6 +112,26 @@
           </div>
           <button type="submit" class="btn-primary" id="submitOrder">Siparişi Onayla · <span id="modalTotal">0 ₺</span></button>
         </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sipariş Takip Modalı -->
+  <div class="modal-backdrop" id="trackModal">
+    <div class="modal">
+      <div class="modal-head">
+        <h3>Sipariş Takibi</h3>
+        <button class="modal-close" data-close-track>✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="track-success">
+          <div class="track-check">✓</div>
+          <h4 id="trackTitle">Siparişiniz alındı!</h4>
+          <p id="trackNo" class="track-no"></p>
+        </div>
+        <div class="track-eta" id="trackEta"></div>
+        <div class="track-steps" id="trackSteps"></div>
+        <button class="btn-primary" data-close-track>Menüye Dön</button>
       </div>
     </div>
   </div>
