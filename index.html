@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lezzet Durağı — Online Sipariş</title>
+  <meta name="description" content="Lokal restoran sipariş demo uygulaması. Komisyonsuz, hızlı ve kolay sipariş." />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- Üst Bar -->
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a href="index.html" class="brand">
+        <span class="logo">🍽️</span>
+        <span>Lezzet Durağı <small>Komisyonsuz lokal sipariş</small></span>
+      </a>
+      <nav class="nav-links">
+        <a href="index.html" class="active">🛒 <span>Menü</span></a>
+        <a href="admin.html">⚙️ <span>Admin Panel</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-inner">
+      <span class="badge">🚀 Demo — Mock veri ile çalışır</span>
+      <h1>Mahallenin lezzetleri, komisyonsuz kapında</h1>
+      <p>Sanayi bölgesindeki işletmeler ve civar restoranları buluşturan lokal sipariş platformu. Menüden seç, sepete ekle, sipariş ver.</p>
+    </div>
+  </section>
+
+  <!-- İçerik -->
+  <div class="layout">
+    <main>
+      <div class="filters" id="filters"></div>
+      <div class="menu-grid" id="menuGrid"></div>
+    </main>
+
+    <!-- Sepet -->
+    <aside>
+      <div class="cart">
+        <div class="cart-head">
+          <h2>Sepetim</h2>
+          <span class="cart-count" id="cartCount">0</span>
+        </div>
+        <div class="cart-items" id="cartItems"></div>
+        <div class="cart-foot">
+          <div class="cart-total">
+            <span>Toplam</span>
+            <span id="cartTotal">0 ₺</span>
+          </div>
+          <button class="btn-primary" id="checkoutBtn" disabled>Sipariş Ver</button>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <!-- Sipariş Modalı -->
+  <div class="modal-backdrop" id="orderModal">
+    <div class="modal">
+      <div class="modal-head">
+        <h3>Sipariş Bilgileri</h3>
+        <button class="modal-close" data-close>✕</button>
+      </div>
+      <div class="modal-body">
+        <form id="orderForm">
+          <div class="form-group">
+            <label>Ad Soyad</label>
+            <input type="text" name="customer" required placeholder="Örn: Ahmet Yılmaz" />
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Telefon</label>
+              <input type="tel" name="phone" required placeholder="05XX XXX XX XX" />
+            </div>
+            <div class="form-group">
+              <label>Ödeme</label>
+              <select name="payment">
+                <option>Kapıda Nakit</option>
+                <option>Kapıda Kredi Kartı</option>
+                <option>Online Ödeme</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Adres</label>
+            <textarea name="address" rows="2" required placeholder="Teslimat adresi"></textarea>
+          </div>
+          <div class="form-group">
+            <label>Sipariş Notu (opsiyonel)</label>
+            <input type="text" name="note" placeholder="Örn: Zili çalmayın" />
+          </div>
+          <button type="submit" class="btn-primary" id="submitOrder">Siparişi Onayla · <span id="modalTotal">0 ₺</span></button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

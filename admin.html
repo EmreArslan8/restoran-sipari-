@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Panel — Lezzet Durağı</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="admin-wrap">
+
+    <!-- Kenar Çubuğu -->
+    <aside class="sidebar" id="sidebar">
+      <a href="admin.html" class="brand">
+        <span class="logo">🍽️</span>
+        <span>Lezzet Durağı <small>Yönetim Paneli</small></span>
+      </a>
+      <nav class="side-nav" id="sideNav">
+        <button data-section="dashboard" class="active"><span class="ico">📊</span> Genel Bakış</button>
+        <button data-section="orders"><span class="ico">🧾</span> Siparişler</button>
+        <button data-section="products"><span class="ico">🍔</span> Menü / Ürünler</button>
+      </nav>
+      <div class="side-foot">
+        <a href="index.html">🛒 Müşteri Sitesine Dön</a>
+        <a href="#" id="resetBtn">♻️ Demo Verisini Sıfırla</a>
+      </div>
+    </aside>
+    <div class="side-backdrop" id="sideBackdrop"></div>
+
+    <!-- Ana İçerik -->
+    <main class="admin-main">
+      <div class="admin-header">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <button class="menu-toggle" id="menuToggle">☰</button>
+          <div>
+            <h1 id="pageTitle">Genel Bakış</h1>
+            <p id="pageSub">Restoranınızın günlük performansı</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dashboard -->
+      <section class="section active" id="dashboard">
+        <div class="kpi-grid" id="kpiGrid"></div>
+        <div class="panel">
+          <div class="panel-head"><h2>Son Siparişler</h2></div>
+          <div class="table-scroll">
+            <table>
+              <thead>
+                <tr><th>No</th><th>Müşteri</th><th>Tutar</th><th>Durum</th><th>Zaman</th></tr>
+              </thead>
+              <tbody id="recentOrders"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- Siparişler -->
+      <section class="section" id="orders">
+        <div class="panel">
+          <div class="panel-head">
+            <h2>Tüm Siparişler</h2>
+            <select class="status-select" id="orderFilter">
+              <option value="all">Tüm Durumlar</option>
+              <option value="yeni">Yeni</option>
+              <option value="hazirlaniyor">Hazırlanıyor</option>
+              <option value="yolda">Yolda</option>
+              <option value="teslim">Teslim Edildi</option>
+              <option value="iptal">İptal</option>
+            </select>
+          </div>
+          <div class="table-scroll">
+            <table>
+              <thead>
+                <tr><th>No</th><th>Müşteri</th><th>Ürün</th><th>Tutar</th><th>Durum</th><th>Zaman</th><th></th></tr>
+              </thead>
+              <tbody id="ordersTable"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- Ürünler -->
+      <section class="section" id="products">
+        <div class="panel">
+          <div class="panel-head">
+            <h2>Menü Ürünleri</h2>
+            <button class="btn-add btn-sm" id="addProductBtn">+ Yeni Ürün</button>
+          </div>
+          <div class="table-scroll">
+            <table>
+              <thead>
+                <tr><th>Ürün</th><th>Kategori</th><th>Fiyat</th><th>Durum</th><th></th></tr>
+              </thead>
+              <tbody id="productsTable"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Ürün Modalı -->
+  <div class="modal-backdrop" id="productModal">
+    <div class="modal">
+      <div class="modal-head">
+        <h3 id="productModalTitle">Yeni Ürün</h3>
+        <button class="modal-close" data-close>✕</button>
+      </div>
+      <div class="modal-body">
+        <form id="productForm">
+          <input type="hidden" name="id" />
+          <div class="form-group">
+            <label>Ürün Adı</label>
+            <input type="text" name="name" required placeholder="Örn: Adana Kebap" />
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Kategori</label>
+              <select name="category" id="catSelect"></select>
+            </div>
+            <div class="form-group">
+              <label>Fiyat (₺)</label>
+              <input type="number" name="price" required min="0" step="1" placeholder="0" />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Emoji / İkon</label>
+              <input type="text" name="emoji" maxlength="4" placeholder="🍢" />
+            </div>
+            <div class="form-group">
+              <label>Durum</label>
+              <select name="active">
+                <option value="true">Satışta</option>
+                <option value="false">Pasif</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Açıklama</label>
+            <textarea name="desc" rows="2" placeholder="Kısa açıklama"></textarea>
+          </div>
+          <button type="submit" class="btn-primary">Kaydet</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>
