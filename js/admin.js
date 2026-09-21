@@ -125,7 +125,12 @@ function renderProducts() {
   const products = Store.getProducts();
   el("productsTable").innerHTML = products.map(p => `
     <tr>
-      <td><span style="font-size:1.2rem;margin-right:6px">${p.emoji || "🍽️"}</span><strong>${p.name}</strong><br><small style="color:var(--gray)">${p.desc || ""}</small></td>
+      <td style="display:flex;align-items:center">
+        <span class="prod-thumb">
+          ${p.img ? `<img src="${p.img}" alt="${p.name}" loading="lazy" onerror="this.remove()">` : (p.emoji || "🍽️")}
+        </span>
+        <span><strong>${p.name}</strong><br><small style="color:var(--gray)">${p.desc || ""}</small></span>
+      </td>
       <td><span class="tag">${p.category}</span></td>
       <td><strong>${formatPrice(p.price)}</strong></td>
       <td><span class="tag ${p.active ? "on" : "off"}">${p.active ? "Satışta" : "Pasif"}</span></td>
@@ -161,6 +166,7 @@ function openProductModal(id) {
     form.price.value = p.price;
     form.emoji.value = p.emoji || "";
     form.active.value = String(p.active);
+    form.img.value = p.img || "";
     form.desc.value = p.desc || "";
   } else {
     el("productModalTitle").textContent = "Yeni Ürün";
@@ -179,6 +185,7 @@ function submitProduct(e) {
     category: fd.get("category"),
     price: Number(fd.get("price")),
     emoji: (fd.get("emoji") || "").trim() || "🍽️",
+    img: (fd.get("img") || "").trim(),
     active: fd.get("active") === "true",
     desc: (fd.get("desc") || "").trim(),
   };

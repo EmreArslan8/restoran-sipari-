@@ -33,7 +33,10 @@ function renderMenu() {
 
   el("menuGrid").innerHTML = list.map(p => `
     <div class="card">
-      <div class="thumb">${p.emoji || "🍽️"}</div>
+      <div class="thumb">
+        <span class="thumb-emoji">${p.emoji || "🍽️"}</span>
+        ${p.img ? `<img src="${p.img}" alt="${p.name}" loading="lazy" onerror="this.remove()">` : ""}
+      </div>
       <div class="body">
         <span class="cat">${p.category}</span>
         <h3>${p.name}</h3>

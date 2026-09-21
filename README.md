@@ -25,6 +25,16 @@ Modern, sade ve responsive arayüz — sadece **HTML, CSS ve saf JavaScript** il
 - ♻️ Demo verisini tek tıkla sıfırlama
 - Mobil uyumlu, açılır kenar menüsü
 
+## 🖼️ Görseller
+
+Ürün görselleri, kategoriye göre eşleşen **stok fotoğraf** servisinden (loremflickr) çekilir;
+her URL `?lock` parametresiyle sabitlenmiştir (hep aynı görsel gelir) ve gerçek yemek fotoğrafı döndürür.
+Görsel yüklenemezse arayüz otomatik olarak emoji ikonuna düşer (bozuk görsel görünmez).
+
+Kendi görselinizi kullanmak için iki yol var:
+- `js/data.js` içindeki ilgili ürünün `img` alanını değiştirin, veya
+- Admin Panel → Menü / Ürünler → Düzenle ekranındaki **Görsel URL** alanına kendi bağlantınızı girin.
+
 ## 🗃️ Veri
 
 Tüm veriler tarayıcının `localStorage`'ında tutulur (`js/data.js` içindeki mock veriyle başlar).

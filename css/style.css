@@ -92,9 +92,21 @@ img { max-width: 100%; }
 }
 .card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
 .card .thumb {
-  height: 120px; background: linear-gradient(135deg, #fef3c7, #fde68a);
-  display: grid; place-items: center; font-size: 3rem;
+  position: relative; height: 150px; background: linear-gradient(135deg, #fef3c7, #fde68a);
+  display: grid; place-items: center; font-size: 3rem; overflow: hidden;
 }
+.card .thumb img {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;
+}
+.card .thumb .thumb-emoji { z-index: 0; }
+
+/* Admin ürün tablosu küçük görsel */
+.prod-thumb {
+  width: 46px; height: 46px; border-radius: 10px; object-fit: cover; vertical-align: middle;
+  margin-right: 10px; background: linear-gradient(135deg, #fef3c7, #fde68a);
+  display: inline-grid; place-items: center; font-size: 1.3rem; overflow: hidden; border: 1px solid var(--border);
+}
+.prod-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .card .body { padding: 14px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
 .card .cat { font-size: .72rem; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: .03em; }
 .card h3 { font-size: 1.02rem; }
